@@ -1,0 +1,125 @@
+---
+import { GALLERY } from '../data/content';
+---
+
+<section id="galeria">
+  <header class="gallery-header">
+    <div>
+      <p class="eyebrow">Galeria</p>
+      <h2>Wnętrze <em>gabinetu</em></h2>
+    </div>
+    <p class="gallery-caption">Przygaszone światło, ciepłe drewno, świece.</p>
+  </header>
+
+  <div class="gallery-grid">
+    <img
+      src={GALLERY[0].src}
+      alt={GALLERY[0].alt}
+      class="photo-main"
+      loading="lazy"
+    />
+    <img src={GALLERY[1].src} alt={GALLERY[1].alt} loading="lazy" />
+    <img src={GALLERY[2].src} alt={GALLERY[2].alt} loading="lazy" />
+    <img src={GALLERY[3].src} alt={GALLERY[3].alt} loading="lazy" />
+    <img src={GALLERY[4].src} alt={GALLERY[4].alt} loading="lazy" />
+  </div>
+</section>
+
+<style>
+  section {
+    padding: 100px 80px;
+    background: #f4ede0;
+  }
+
+  .gallery-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 60px;
+    gap: 40px;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #6b7d5c;
+    margin: 0 0 20px;
+    font-weight: 500;
+  }
+
+  h2 {
+    font-size: clamp(40px, 4.7vw, 60px);
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  h2 em {
+    color: #4a5a3a;
+    font-style: italic;
+  }
+
+  .gallery-caption {
+    font-size: 18px;
+    color: #5a5a52;
+    font-style: italic;
+    font-weight: 300;
+    max-width: 320px;
+    text-align: right;
+    margin: 0;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 260px 260px;
+    gap: 16px;
+  }
+
+  .gallery-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-main {
+    grid-row: span 2;
+  }
+
+  @media (max-width: 900px) {
+    section {
+      padding: 60px 24px;
+    }
+
+    .gallery-header {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .gallery-caption {
+      text-align: left;
+    }
+
+    .gallery-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(3, 200px);
+    }
+
+    .photo-main {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gallery-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(5, 220px);
+    }
+
+    .photo-main {
+      grid-column: span 1;
+    }
+  }
+</style>

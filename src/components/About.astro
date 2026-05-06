@@ -1,0 +1,141 @@
+---
+import { ABOUT_PARAGRAPHS } from '../data/content';
+---
+
+<section id="o-mnie">
+  <div class="about-image">
+    <img
+      src="/assets/gallery/05-mirror.jpeg"
+      alt="Wnętrze gabinetu — okrągłe lustro"
+      loading="lazy"
+    />
+    <div class="about-badge">
+      <p class="badge-label">Kwalifikacje</p>
+      <p class="badge-text">mgr fizjoterapii<br /><em>technik masażysta</em></p>
+    </div>
+  </div>
+
+  <div class="about-content">
+    <p class="eyebrow">O mnie</p>
+    <h2>
+      Masaż dobrany<br /><em>indywidualnie</em>
+    </h2>
+    {ABOUT_PARAGRAPHS.map(p => (
+      <p class="body-text">{p}</p>
+    ))}
+    <p class="sign">— Zapraszam serdecznie.</p>
+  </div>
+</section>
+
+<style>
+  section {
+    padding: 100px 80px;
+    background: #f4ede0;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .about-image {
+    position: relative;
+  }
+
+  .about-image img {
+    width: 420px;
+    height: 560px;
+    object-fit: cover;
+  }
+
+  .about-badge {
+    position: absolute;
+    bottom: -30px;
+    right: -30px;
+    background: #faf6ee;
+    padding: 28px 32px;
+    border-left: 2px solid #4a5a3a;
+    max-width: 280px;
+  }
+
+  .badge-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #6b7d5c;
+    margin: 0 0 8px;
+  }
+
+  .badge-text {
+    font-size: 20px;
+    font-style: italic;
+    line-height: 1.4;
+    margin: 0;
+    color: #2a2a26;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #6b7d5c;
+    margin: 0 0 24px;
+    font-weight: 500;
+  }
+
+  h2 {
+    font-size: clamp(40px, 4.7vw, 60px);
+    line-height: 1.05;
+    font-weight: 400;
+    margin: 0 0 36px;
+    letter-spacing: -0.01em;
+  }
+
+  h2 em {
+    color: #4a5a3a;
+    font-style: italic;
+  }
+
+  .body-text {
+    font-size: 19px;
+    line-height: 1.65;
+    color: #5a5a52;
+    margin: 0 0 20px;
+    font-weight: 300;
+  }
+
+  .sign {
+    margin-top: 40px;
+    font-size: 22px;
+    font-style: italic;
+    color: #4a5a3a;
+  }
+
+  @media (max-width: 1024px) {
+    section {
+      grid-template-columns: 1fr;
+      gap: 60px;
+      padding: 80px 40px;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 380px;
+    }
+
+    .about-badge {
+      right: 0;
+      bottom: -20px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    section {
+      padding: 60px 24px;
+    }
+
+    .about-badge {
+      position: static;
+      margin-top: 20px;
+    }
+  }
+</style>

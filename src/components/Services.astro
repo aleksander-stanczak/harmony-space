@@ -1,0 +1,203 @@
+---
+import { SERVICES, CONTACT } from '../data/content';
+import Icons from './Icons.astro';
+---
+
+<section id="uslugi">
+  <header class="section-header">
+    <p class="eyebrow">Cennik</p>
+    <h2>Zakres <em>usług</em></h2>
+    <p class="subtitle">Każdy masaż dobierany do potrzeb tego dnia.</p>
+  </header>
+
+  <div class="services-list">
+    {SERVICES.map(service => (
+      <div class="service-row">
+        <div class="service-icon">
+          <Icons name={service.icon} size={44} />
+        </div>
+        <div class="service-info">
+          <h3>{service.name}</h3>
+          <p>{service.desc}</p>
+        </div>
+        <div class="service-pricing">
+          {service.items.map((item, j) => (
+            <div class="price-item">
+              <span class="duration">{item.duration}</span>
+              <div class="price-row">
+                {item.original && <span class="original">{item.original}</span>}
+                <span class="price">{item.price}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="section-cta">
+    <a href={CONTACT.booksy} target="_blank" rel="noopener noreferrer" class="btn-primary">
+      Zarezerwuj termin
+    </a>
+  </div>
+</section>
+
+<style>
+  section {
+    padding: 120px 80px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #6b7d5c;
+    margin: 0 0 20px;
+    font-weight: 500;
+  }
+
+  h2 {
+    font-size: clamp(48px, 5.6vw, 72px);
+    line-height: 1;
+    font-weight: 400;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  h2 em {
+    color: #4a5a3a;
+    font-style: italic;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    color: #5a5a52;
+    margin: 28px 0 0;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .services-list {
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .service-row {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 32px;
+    padding: 36px 0;
+    border-bottom: 1px solid #d8cfb8;
+    align-items: start;
+  }
+
+  .service-icon {
+    padding-top: 4px;
+    color: #4a5a3a;
+  }
+
+  h3 {
+    font-size: 30px;
+    font-weight: 400;
+    margin: 0 0 8px;
+    letter-spacing: -0.005em;
+  }
+
+  .service-info p {
+    font-size: 17px;
+    color: #5a5a52;
+    margin: 0;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.5;
+    max-width: 440px;
+  }
+
+  .service-pricing {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .price-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .duration {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #5a5a52;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .original {
+    font-size: 16px;
+    text-decoration: line-through;
+    color: #5a5a52;
+    opacity: 0.5;
+  }
+
+  .price {
+    font-size: 26px;
+    font-weight: 500;
+    color: #4a5a3a;
+  }
+
+  .section-cta {
+    text-align: center;
+    margin-top: 70px;
+  }
+
+  .btn-primary {
+    background: #4a5a3a;
+    color: #faf6ee;
+    padding: 20px 48px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+  }
+
+  @media (max-width: 768px) {
+    section {
+      padding: 80px 24px;
+    }
+
+    .service-row {
+      grid-template-columns: 44px 1fr;
+      grid-template-rows: auto auto;
+      gap: 16px;
+    }
+
+    .service-pricing {
+      grid-column: 1 / -1;
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    .price-item {
+      align-items: flex-start;
+    }
+  }
+</style>

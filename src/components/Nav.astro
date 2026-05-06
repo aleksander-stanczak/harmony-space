@@ -1,0 +1,181 @@
+---
+import { CONTACT } from '../data/content';
+---
+
+<nav id="main-nav">
+  <a href="#hero" class="nav-logo">
+    <img src="/assets/logo.png" alt="HarmonySpace" />
+  </a>
+  <div class="nav-links">
+    <a href="#o-mnie">O mnie</a>
+    <a href="#uslugi">Usługi</a>
+    <a href="#galeria">Galeria</a>
+    <a href="#kontakt">Kontakt</a>
+    <a href={CONTACT.booksy} target="_blank" rel="noopener noreferrer" class="nav-cta">Rezerwuj</a>
+  </div>
+  <button class="nav-burger" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<style>
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: rgba(250, 246, 238, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #d8cfb8;
+    padding: 20px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo img {
+    height: 44px;
+    width: auto;
+    mix-blend-mode: multiply;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 44px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .nav-links a {
+    color: #5a5a52;
+    text-decoration: none;
+    font-weight: 500;
+    padding-bottom: 4px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: #4a5a3a;
+    border-bottom-color: #4a5a3a;
+    opacity: 1;
+  }
+
+  .nav-cta {
+    background: #4a5a3a;
+    color: #faf6ee !important;
+    padding: 10px 22px;
+    font-size: 15px;
+    border-bottom: none !important;
+  }
+
+  .nav-cta:hover {
+    opacity: 0.85;
+  }
+
+  .nav-burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .nav-burger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: #2a2a26;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  @media (max-width: 900px) {
+    nav {
+      padding: 16px 24px;
+    }
+
+    .nav-burger {
+      display: flex;
+    }
+
+    .nav-links {
+      display: none;
+      position: fixed;
+      top: 73px;
+      left: 0;
+      right: 0;
+      background: rgba(250, 246, 238, 0.97);
+      flex-direction: column;
+      gap: 0;
+      padding: 20px 0;
+      border-bottom: 1px solid #d8cfb8;
+    }
+
+    .nav-links.open {
+      display: flex;
+    }
+
+    .nav-links a {
+      padding: 14px 24px;
+      width: 100%;
+      border-bottom: none !important;
+      border-top: 1px solid #d8cfb8;
+    }
+
+    .nav-cta {
+      margin: 16px 24px 0;
+      width: calc(100% - 48px);
+      text-align: center;
+      padding: 14px 22px;
+    }
+  }
+</style>
+
+<script>
+  const burger = document.querySelector('.nav-burger') as HTMLButtonElement;
+  const links = document.querySelector('.nav-links') as HTMLElement;
+
+  burger?.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+  });
+
+  // Close mobile menu on link click
+  links?.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      links.classList.remove('open');
+      burger?.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Active section tracking
+  const sections = ['hero', 'o-mnie', 'uslugi', 'galeria', 'kontakt'];
+  const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            link.classList.toggle('active', href === `#${id}`);
+          });
+        }
+      });
+    },
+    { rootMargin: '-40% 0px -55% 0px' }
+  );
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+</script>
