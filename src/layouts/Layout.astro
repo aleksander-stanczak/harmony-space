@@ -2,11 +2,15 @@
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
 }
 const {
   title = "HarmonySpace · Gabinet Masażu · Warszawa Wawer",
-  description = "Kameralne miejsce, gdzie woń naturalnych olejków, przygaszone światło i świadomy dotyk spotykają się z wiedzą fizjoterapeuty.",
+  description = "Gabinet masażu w Warszawie Wawer. Masaż relaksacyjny, klasyczny, Kobido i drenaż limfatyczny. Rezerwacja online przez Booksy.",
+  ogImage = "https://harmonyspace.pl/assets/gallery/01-room.jpeg",
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -15,11 +19,70 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
     <title>{title}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1816" />
+    <meta property="og:image:height" content="1816" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:site_name" content="HarmonySpace" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Structured data — LocalBusiness -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "HealthAndBeautyBusiness",
+        "name": "HarmonySpace",
+        "description": "Gabinet masażu w Warszawie Wawer. Masaż relaksacyjny, klasyczny, Kobido i drenaż limfatyczny.",
+        "url": "https://harmonyspace.pl",
+        "telephone": "+48572894440",
+        "email": "",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Miłkowskiego 2A",
+          "addressLocality": "Warszawa",
+          "postalCode": "04-683",
+          "addressCountry": "PL"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+            "opens": "09:00",
+            "closes": "20:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "10:00",
+            "closes": "16:00"
+          }
+        ],
+        "priceRange": "85–257 zł",
+        "image": "https://harmonyspace.pl/assets/gallery/01-room.jpeg",
+        "sameAs": [
+          "https://booksy.com/pl-pl/193222_harmonyspace-gabinet-masazu_masaz_3_warszawa"
+        ]
+      }
+    </script>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap"
       rel="stylesheet"
     />
   </head>
